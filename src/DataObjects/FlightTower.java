@@ -6,7 +6,6 @@ import java.util.Queue;
 
 public class FlightTower {
 	
-	//Lock lock = new ReentrantLock();
 	Queue<Lane> lanes;
 	
 	public FlightTower() {

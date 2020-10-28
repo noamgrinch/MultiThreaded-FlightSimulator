@@ -4,7 +4,6 @@ public class Lane {
 	
 	private Integer id;
 
-	
 	public Lane(Integer id) {
 		this.id=id;
 	}

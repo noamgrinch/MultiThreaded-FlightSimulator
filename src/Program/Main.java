@@ -18,21 +18,28 @@ public class Main {
 
 		ExecutorService e = Executors.newCachedThreadPool();
 		List<Lane> lanes = new ArrayList<Lane>();
-		for(int i=0;i<7;i++) {
+		for(int i=0;i<4;i++) {
 			lanes.add(new Lane(i));
 		}
 		FlightTower f1 = new FlightTower(lanes);
 		lanes = new ArrayList<Lane>();
-		for(int i=0;i<7;i++) {
+		for(int i=0;i<4;i++) {
 			lanes.add(new Lane(10 + i));
 		}
 		FlightTower f2 = new FlightTower(lanes);
+		lanes = new ArrayList<Lane>();
+		for(int i=0;i<4;i++) {
+			lanes.add(new Lane(100 + i));
+		}
+		FlightTower f3 = new FlightTower(lanes);
 		Airport a1 = new Airport(f1);
 		Airport a2 = new Airport(f2);
-			
+		Airport a3 = new Airport(f3);
+		Airport[] air = {null,a1,a2,a3};
 
-		for(int i=0;i<5;i++) {
-			e.execute(new Flight(i,a1,a2));
+		for(int i=0;i<15;i++) {
+			int depart = ThreadLocalRandom.current().nextInt(1, 4);
+			e.execute(new Flight(i,air[depart],air[(depart)%4]));
 		}
 		// If shutdown() is no called, the threads are being labeled as Non-daemon threads.
 		// Due to that fact the JVM will not halt when they are terminated.

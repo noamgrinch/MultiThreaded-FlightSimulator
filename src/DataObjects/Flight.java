@@ -1,5 +1,7 @@
 package DataObjects;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Flight extends Thread{
 
 	private int id;
@@ -22,9 +24,8 @@ public class Flight extends Thread{
 		try {
 			departureLane = this.departureAirport.getFlightTower().getLane();
 			System.out.println("Flight number " + this.id + " is departing in lane number " + departureLane.getId());
-			Thread.sleep(2000);
+			Thread.sleep(ThreadLocalRandom.current().nextInt(1, 10)*500);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -32,17 +33,15 @@ public class Flight extends Thread{
 		this.departureAirport.getFlightTower().returnLane(departureLane);
 		System.out.println("Flight number " + this.id + " is now cruising...");
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(ThreadLocalRandom.current().nextInt(1, 10)*1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			landingLane = this.landingAirport.getFlightTower().getLane();
 			System.out.println("Flight number " + this.id + " is landing in lane number " + landingLane.getId());
-			Thread.sleep(2000);
+			Thread.sleep(ThreadLocalRandom.current().nextInt(1, 10)*500);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("Flight number " + this.id + " has landed in lane number " + landingLane.getId());

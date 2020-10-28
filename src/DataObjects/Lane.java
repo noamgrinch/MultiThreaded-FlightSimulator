@@ -1,9 +1,9 @@
 package DataObjects;
 
-public abstract class Lane {
+public class Lane {
 	
 	private Integer id;
-	private boolean occupied;
+
 	
 	public Lane(Integer id) {
 		this.id=id;
@@ -15,14 +15,6 @@ public abstract class Lane {
 
 	public Integer getId() {
 		return this.id;
-	}
-	
-	public synchronized void setOccupied(boolean bool) {
-		this.occupied=bool;
-	}
-	
-	public synchronized boolean isOccupied() {
-		return this.occupied;
-	}
+	}	
 	
 }

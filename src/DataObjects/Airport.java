@@ -1,23 +1,15 @@
 package DataObjects;
 
-import java.util.List;
-
 public class Airport {
 	
-	private List<DepartureLane> departureLane;
-	private List<LandingLane> ladningLanes;
+	private FlightTower flightTower;
 	
-	public Airport(List<DepartureLane> departureLane,List<LandingLane> ladningLanes) {
-		this.departureLane=departureLane;
-		this.ladningLanes=ladningLanes;
+	public Airport(FlightTower flightTower) {
+		this.flightTower=flightTower;
 	}
 	
-	public List<DepartureLane> getDepartureLanes() {
-		return this.departureLane;
-	}
-	
-	public List<LandingLane> getLandingLanes() {
-		return this.ladningLanes;
+	public FlightTower getFlightTower() {
+		return this.flightTower;
 	}
 
 }

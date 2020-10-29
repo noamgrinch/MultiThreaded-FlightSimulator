@@ -3,53 +3,33 @@ package DataObjects;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.locks.Condition;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class FlightTower {
 	
-	private Lock lock;
-	Queue<Lane> lanes;
-	private Condition emptyLanes; // Putting the thread to sleep if the condition is met.
+
+	BlockingQueue<Lane> lanes;
 	
 	public FlightTower() {
-		lock = new ReentrantLock();
-		lanes = new LinkedList<Lane>();
-		emptyLanes = lock.newCondition();
+		lanes = new LinkedBlockingQueue<Lane>();
 	}
 	
 	public FlightTower(List<Lane> lanes) {
-		lock = new ReentrantLock();
-		emptyLanes = lock.newCondition();
-		this.lanes = new LinkedList<Lane>();
+		this.lanes = new LinkedBlockingQueue<Lane>();
 		for(int i=0;i<lanes.size();i++) {
 			this.lanes.add(lanes.get(i));
 		}
 	}
 	
-	public Lane getLane() throws InterruptedException {
-		Lane result = null;
-		lock.lock();
-		try {
-			while(lanes.isEmpty()) {
-				emptyLanes.await();
-			}
-			result = lanes.poll();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		return result;
+	public  Lane getLane() throws InterruptedException {
+		return lanes.take();
 	}
 	
-	public void returnLane(Lane lane) {
-		try {
-			lanes.add(lane);
-		}
-		finally {
-			lock.unlock();
-		}
+	public synchronized void returnLane(Lane lane) {
+		lanes.add(lane);
 	}
 
 }

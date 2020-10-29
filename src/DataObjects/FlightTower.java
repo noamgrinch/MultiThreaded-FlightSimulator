@@ -24,11 +24,11 @@ public class FlightTower {
 		}
 	}
 	
-	public  Lane getLane() throws InterruptedException {
+	public Lane getLane() throws InterruptedException {
 		return lanes.take();
 	}
 	
-	public synchronized void returnLane(Lane lane) {
+	public void returnLane(Lane lane) {
 		lanes.add(lane);
 	}
 

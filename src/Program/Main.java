@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
+
+import DataObjects.Aircraft;
+import DataObjects.Airline;
 import DataObjects.Airport;
 import DataObjects.Flight;
 import DataObjects.FlightTower;
@@ -36,15 +39,16 @@ public class Main {
 		Airport a1 = new Airport(f1);
 		Airport a2 = new Airport(f2);
 		Airport a3 = new Airport(f3);
-		Airport[] air = {null,a1,a2,a3};
-
+		Airport[] airports = {null,a1,a2,a3};
+		Airline elal = new Airline("ELAL");
+		Aircraft air = new Aircraft("AIR-FORCE-1");
 		for(int i=0;i<15;i++) {
 			int depart = ThreadLocalRandom.current().nextInt(1, 4);
-			e.execute(new Flight(i,air[depart],air[(depart)%4]));
+			elal.getCoordinator().addFlight((new Flight(i,airports[depart],airports[(depart)%4],air)));
 		}
-		// If shutdown() is no called, the threads are being labeled as Non-daemon threads.
-		// Due to that fact the JVM will not halt when they are terminated.
+		e.execute(elal);
 		e.shutdown();
+
 		
 	}
 

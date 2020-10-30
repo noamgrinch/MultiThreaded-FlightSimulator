@@ -7,11 +7,13 @@ public class Flight extends Thread{
 	private int id;
 	private Airport departureAirport, landingAirport;
 	private Lane departureLane = null, landingLane = null;
+	private Aircraft aircraft;
 	
-	public Flight(int id,Airport departureAirport, Airport landingAirport) {
+	public Flight(int id,Airport departureAirport, Airport landingAirport, Aircraft aircraft) {
 		this.departureAirport=departureAirport;
 		this.landingAirport=landingAirport;
 		this.id=id;
+		this.aircraft=aircraft;
 	}
 	
 	public int getFlightId() {
@@ -20,7 +22,7 @@ public class Flight extends Thread{
 
 	@Override
 	public void run() {
-		
+		System.out.println("Aircraft " + this.aircraft.getName() + " is leaving gate...");
 		try {
 			departureLane = this.departureAirport.getFlightTower().getLane();
 			System.out.println("Flight number " + this.id + " is departing in lane number " + departureLane.getId());
@@ -45,6 +47,7 @@ public class Flight extends Thread{
 			e.printStackTrace();
 		}
 		System.out.println("Flight number " + this.id + " has landed in lane number " + landingLane.getId());
+		System.out.println("Aircraft " + this.aircraft.getName() + " is now available");
 		this.landingAirport.getFlightTower().returnLane(landingLane);
 	}
 }

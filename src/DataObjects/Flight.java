@@ -1,22 +1,26 @@
 package DataObjects;
 
+import java.time.LocalDate;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Flight extends Thread{
 
-	private int id;
+	private String id;
 	private Airport departureAirport, landingAirport;
 	private Lane departureLane = null, landingLane = null;
 	private Aircraft aircraft;
+	private LocalDate depTime,lanTime;
 	
-	public Flight(int id,Airport departureAirport, Airport landingAirport, Aircraft aircraft) {
+	public Flight(String id,Airport departureAirport, Airport landingAirport, Aircraft aircraft,LocalDate depTime,
+			LocalDate  lanTime) {
 		this.departureAirport=departureAirport;
 		this.landingAirport=landingAirport;
 		this.id=id;
 		this.aircraft=aircraft;
+		this.depTime=depTime;this.lanTime=lanTime;
 	}
 	
-	public int getFlightId() {
+	public String getFlightId() {
 		return this.id;
 	}
 

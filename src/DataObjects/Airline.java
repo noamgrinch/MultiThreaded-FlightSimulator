@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class Airline implements Runnable{
 	
-	private String name;
+	private String name,ticker;
 	private Set<Aircraft> aircrafts;
 	private FlightsCoordinator flightsCoordinator;
 	
@@ -14,10 +14,15 @@ public class Airline implements Runnable{
 		this.flightsCoordinator = new FlightsCoordinatorImpl();
 	}
 	
-	public Airline(String name) {
+	public Airline(String name,String ticker) {
+		this.ticker=ticker;
 		this.name=name;
 		this.aircrafts = new HashSet<Aircraft>();
 		this.flightsCoordinator = new FlightsCoordinatorImpl();
+	}
+	
+	public String getTicker() {
+		return this.ticker;
 	}
 	
 	public void addAircraft(Aircraft aircraft) {
@@ -38,6 +43,7 @@ public class Airline implements Runnable{
 
 	@Override
 	public void run() {
+		System.out.println("Airline " + this.name + " has started to operate.");
 		this.flightsCoordinator.start();	
 	}
 
